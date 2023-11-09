@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.configuration.SpringConfig;
+import org.example.configuration.Config;
 import org.example.controller.PlayerController;
 import org.example.controller.impl.PlayerControllerImpl;
 import org.example.entity.EntryActivity;
@@ -27,7 +27,7 @@ public class Main {
         String password;
         String identify;
 
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
         PlayerController playerController = applicationContext.getBean(PlayerControllerImpl.class);
         applicationContext.start();
 
