@@ -7,10 +7,12 @@ import org.example.util.dictionary.ActionType;
 import org.example.util.dictionary.TransactionType;
 import org.example.service.PlayerService;
 import org.example.util.exception.AccessDeniedException;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Component
 public class PlayerServiceImpl implements PlayerService {
 
     public Player creatingNewPlayerAccount(String login, String password) {

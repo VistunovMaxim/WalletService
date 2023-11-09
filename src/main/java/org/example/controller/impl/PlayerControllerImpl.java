@@ -5,16 +5,18 @@ import org.example.entity.EntryActivity;
 import org.example.entity.Player;
 import org.example.entity.Transaction;
 import org.example.repository.PlayersRepository;
-import org.example.repository.impl.PlayersRepositoryImpl;
 import org.example.util.dictionary.TransactionType;
 import org.example.util.exception.AccessDeniedException;
 import org.example.util.exception.UserNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class PlayerControllerImpl implements PlayerController {
-
-    private final PlayersRepository playersRepository = new PlayersRepositoryImpl();
+    @Autowired
+    private PlayersRepository playersRepository;
 
     public Player registration(String login, String password) throws AccessDeniedException {
         return playersRepository.creatingNewPlayerAccount(login, password);

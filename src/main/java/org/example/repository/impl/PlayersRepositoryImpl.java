@@ -5,19 +5,22 @@ import org.example.entity.Player;
 import org.example.entity.Transaction;
 import org.example.repository.PlayersRepository;
 import org.example.service.PlayerService;
-import org.example.service.impl.PlayerServiceImpl;
 import org.example.util.dictionary.TransactionType;
 import org.example.util.exception.AccessDeniedException;
 import org.example.util.exception.UserNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class PlayersRepositoryImpl implements PlayersRepository {
 
-    private static final Map<String, Player> playerRepository = new HashMap<>();
-    private static final PlayerService playerService = new PlayerServiceImpl();
+    private final Map<String, Player> playerRepository = new HashMap<>();
+    @Autowired
+    private PlayerService playerService;
 
     public Player authorizationPlayerAccount(String login, String password) throws AccessDeniedException, UserNotFoundException {
         if (playerAlreadyExists(login)) {

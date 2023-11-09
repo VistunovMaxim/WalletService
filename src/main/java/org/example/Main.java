@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.configuration.SpringConfig;
 import org.example.controller.PlayerController;
 import org.example.controller.impl.PlayerControllerImpl;
 import org.example.entity.EntryActivity;
@@ -8,6 +9,7 @@ import org.example.entity.Transaction;
 import org.example.util.dictionary.TransactionType;
 import org.example.util.exception.AccessDeniedException;
 import org.example.util.exception.UserNotFoundException;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,14 +19,17 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        PlayerController playerController = new PlayerControllerImpl();
         Player player = null;
         boolean isStop = true;
         int variable;
+        double sum;
         String login;
         String password;
         String identify;
-        double sum;
+
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        PlayerController playerController = applicationContext.getBean(PlayerControllerImpl.class);
+        applicationContext.start();
 
         while (isStop) {
             if (player == null) {
