@@ -1,9 +1,7 @@
 package org.example.controller.impl;
 
 import org.example.controller.PlayerController;
-import org.example.entity.EntryActivity;
 import org.example.entity.Player;
-import org.example.entity.Transaction;
 import org.example.repository.PlayersRepository;
 import org.example.util.dictionary.TransactionType;
 import org.example.util.exception.AccessDeniedException;
@@ -26,7 +24,7 @@ public class PlayerControllerImpl implements PlayerController {
         return playersRepository.authorizationPlayerAccount(login, password);
     }
 
-    public Object exit(Player player) {
+    public Object exit(Player player) throws AccessDeniedException {
         return playersRepository.exitPlayerAccount(player);
     }
 
@@ -38,11 +36,11 @@ public class PlayerControllerImpl implements PlayerController {
         playersRepository.doPlayersTransaction(player, transactionType, identifier, sumOfTransaction);
     }
 
-    public List<Transaction> getTransactions(Player player) {
+    public List<String> getTransactions(Player player) throws AccessDeniedException {
         return playersRepository.getPlayersTransactionHistory(player);
     }
 
-    public List<EntryActivity> getActions(Player player) {
+    public List<String> getActions(Player player) throws AccessDeniedException {
         return playersRepository.getPlayersActivityHistory(player);
     }
 }

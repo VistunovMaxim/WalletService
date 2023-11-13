@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 @Component
 public class PlayerMapperImpl implements PlayerMapper {
@@ -18,6 +17,6 @@ public class PlayerMapperImpl implements PlayerMapper {
         String password = resultSet.getString(3);
         double balance = resultSet.getDouble(4);
 
-        return new Player(login, password, balance, new ArrayList<>(), new ArrayList<>());
+        return new Player(login, password, balance);
     }
 }

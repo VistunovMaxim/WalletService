@@ -1,8 +1,6 @@
 package org.example.repository;
 
-import org.example.entity.EntryActivity;
 import org.example.entity.Player;
-import org.example.entity.Transaction;
 import org.example.util.dictionary.TransactionType;
 import org.example.util.exception.AccessDeniedException;
 import org.example.util.exception.UserNotFoundException;
@@ -15,13 +13,13 @@ public interface PlayersRepository {
 
     Player creatingNewPlayerAccount(String login, String password) throws AccessDeniedException;
 
-    Object exitPlayerAccount(Player player);
+    Object exitPlayerAccount(Player player) throws AccessDeniedException;
 
     boolean playerAlreadyExists(String login);
 
-    List<Transaction> getPlayersTransactionHistory(Player player);
+    List<String> getPlayersTransactionHistory(Player player) throws AccessDeniedException;
 
-    List<EntryActivity> getPlayersActivityHistory(Player player);
+    List<String> getPlayersActivityHistory(Player player) throws AccessDeniedException;
 
     double getPlayerBalance(Player player) throws AccessDeniedException;
 

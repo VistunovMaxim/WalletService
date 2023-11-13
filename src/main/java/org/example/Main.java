@@ -3,9 +3,7 @@ package org.example;
 import org.example.configuration.Config;
 import org.example.controller.PlayerController;
 import org.example.controller.impl.PlayerControllerImpl;
-import org.example.entity.EntryActivity;
 import org.example.entity.Player;
-import org.example.entity.Transaction;
 import org.example.util.dictionary.TransactionType;
 import org.example.util.exception.AccessDeniedException;
 import org.example.util.exception.UserNotFoundException;
@@ -101,20 +99,33 @@ public class Main {
                         }
                     }
                     case 4 -> {
-                        List<Transaction> list = playerController.getTransactions(player);
-                        for (Object operation : list) {
-                            System.out.println(operation);
+                        try {
+                            List<String> list = playerController.getTransactions(player);
+                            for (Object operation : list) {
+                                System.out.println(operation);
+                            }
+                        } catch (AccessDeniedException e) {
+                            System.out.println(e.getMessage());
                         }
                     }
                     case 5 -> {
-                        List<EntryActivity> list = playerController.getActions(player);
-                        for (Object action : list) {
-                            System.out.println(action);
+                        try {
+                            List<String> list = playerController.getActions(player);
+                            for (Object action : list) {
+                                System.out.println(action);
+                            }
+                        } catch (AccessDeniedException e) {
+                            System.out.println(e.getMessage());
                         }
                     }
-                    case 6 -> player = (Player) playerController.exit(player);
+                    case 6 -> {
+                        try {
+                            player = (Player) playerController.exit(player);
+                        } catch (AccessDeniedException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                 }
-
             }
         }
         scanner.close();

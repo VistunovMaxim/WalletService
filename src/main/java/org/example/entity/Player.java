@@ -8,24 +8,18 @@ public class Player {
     private final String login;
     private final String password;
     private double balance;
-    private final List<EntryActivity> actionAudit;
-    private final List<Transaction> transactions;
     public final static List<String> transactionIdentifiers = new ArrayList<>();
 
     public Player(String login, String password) {
         this.login = login;
         this.password = password;
         this.balance = 0;
-        this.actionAudit = new ArrayList<>();
-        this.transactions = new ArrayList<>();
     }
 
-    public Player(String login, String password, double balance, List<EntryActivity> actionAudit, List<Transaction> transactions) {
+    public Player(String login, String password, double balance) {
         this.login = login;
         this.password = password;
         this.balance = balance;
-        this.actionAudit = actionAudit;
-        this.transactions = transactions;
     }
 
     public String getLogin() {
@@ -38,14 +32,6 @@ public class Player {
 
     public double getBalance() {
         return balance;
-    }
-
-    public List<EntryActivity> getActionAudit() {
-        return actionAudit;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
     }
 
     public boolean validPass(String password) {
