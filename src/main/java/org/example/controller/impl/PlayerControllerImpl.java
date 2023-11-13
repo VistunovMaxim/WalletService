@@ -30,7 +30,7 @@ public class PlayerControllerImpl implements PlayerController {
         return playersRepository.exitPlayerAccount(player);
     }
 
-    public double getBalance(Player player) {
+    public double getBalance(Player player) throws AccessDeniedException {
         return playersRepository.getPlayerBalance(player);
     }
 

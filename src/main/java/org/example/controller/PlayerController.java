@@ -17,7 +17,7 @@ public interface PlayerController {
 
     Object exit(Player player);
 
-    double getBalance(Player player);
+    double getBalance(Player player) throws AccessDeniedException;
 
     void doTransaction(Player player, TransactionType transactionType, String identifier,
                        double sumOfTransaction) throws AccessDeniedException;

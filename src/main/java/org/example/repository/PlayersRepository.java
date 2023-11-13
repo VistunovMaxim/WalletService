@@ -23,7 +23,7 @@ public interface PlayersRepository {
 
     List<EntryActivity> getPlayersActivityHistory(Player player);
 
-    double getPlayerBalance(Player player);
+    double getPlayerBalance(Player player) throws AccessDeniedException;
 
     void doPlayersTransaction(Player player, TransactionType transactionType, String identifier,
                               double sumOfTransaction) throws AccessDeniedException;

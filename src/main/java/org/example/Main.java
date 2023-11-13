@@ -73,7 +73,13 @@ public class Main {
                         """);
                 variable = scanner.nextInt();
                 switch (variable) {
-                    case 1 -> System.out.println(playerController.getBalance(player));
+                    case 1 -> {
+                        try {
+                            System.out.println(playerController.getBalance(player));
+                        } catch (AccessDeniedException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                     case 2 -> {
                         System.out.println("Введите уникальный идентификатор операции и сумму операции:");
                         identify = scanner.next();
@@ -111,5 +117,6 @@ public class Main {
 
             }
         }
+        scanner.close();
     }
 }

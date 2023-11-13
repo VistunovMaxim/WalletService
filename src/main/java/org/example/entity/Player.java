@@ -20,6 +20,18 @@ public class Player {
         this.transactions = new ArrayList<>();
     }
 
+    public Player(String login, String password, double balance, List<EntryActivity> actionAudit, List<Transaction> transactions) {
+        this.login = login;
+        this.password = password;
+        this.balance = balance;
+        this.actionAudit = actionAudit;
+        this.transactions = transactions;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
     public void setBalance(double balance) {
         this.balance = balance;
     }
