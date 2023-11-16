@@ -70,24 +70,23 @@ public class PlayersRepositoryImpl implements PlayersRepository {
     }
 
     public Player authorizationPlayerAccount(String login, String password) throws AccessDeniedException, UserNotFoundException {
-        if (playerAlreadyExists(login)) {
-            String getPlayerAccount = "select * from players where login = ? and password = ?";
-            String addAuthorizationAction = "insert into activity_table (login, action) values (?, ?)";
-            EntryActivity entryActivity = new EntryActivity(LocalDateTime.now(), ActionType.ENTRY);
-            try (PreparedStatement preparedStatement = connection.prepareStatement(getPlayerAccount);
-                 PreparedStatement pSActivity = connection.prepareStatement(addAuthorizationAction)) {
-                preparedStatement.setString(1, login);
-                preparedStatement.setString(2, password);
-                pSActivity.setString(1, login);
-                pSActivity.setString(2, entryActivity.toString());
-                pSActivity.executeUpdate();
-                ResultSet resultSet = preparedStatement.executeQuery();
-                return playerMapper.resultSetToPlayer(resultSet);
-            } catch (SQLException e) {
-                throw new AccessDeniedException("Got SQL Exception - " + e.getMessage());
+        String getPlayerAccount = "select * from players where login = ? and password = ?";
+        String addAuthorizationAction = "insert into activity_table (login, action) values (?, ?)";
+        EntryActivity entryActivity = new EntryActivity(LocalDateTime.now(), ActionType.ENTRY);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getPlayerAccount);
+             PreparedStatement pSActivity = connection.prepareStatement(addAuthorizationAction)) {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                throw new UserNotFoundException("Неверный логин или пароль");
             }
-        } else {
-            throw new UserNotFoundException("Такой пользователь не найден");
+            pSActivity.setString(1, login);
+            pSActivity.setString(2, entryActivity.toString());
+            pSActivity.executeUpdate();
+            return playerMapper.resultSetToPlayer(resultSet);
+        } catch (SQLException e) {
+            throw new AccessDeniedException("Got SQL Exception - " + e.getMessage());
         }
     }
 

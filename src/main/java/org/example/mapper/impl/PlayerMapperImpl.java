@@ -12,7 +12,6 @@ public class PlayerMapperImpl implements PlayerMapper {
 
     @Override
     public Player resultSetToPlayer(ResultSet resultSet) throws SQLException {
-        resultSet.next();
         String login = resultSet.getString(2);
         String password = resultSet.getString(3);
         double balance = resultSet.getDouble(4);
